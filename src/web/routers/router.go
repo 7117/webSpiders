@@ -9,4 +9,6 @@ func init() {
 	beego.Router("/", &controllers.MainController{},"get:Get")
 	beego.Router("/", &controllers.MainController{},"post:Post")
 	beego.Router("/test", &controllers.TestController{}, "get:Get;post:Post")
+	beego.Router("/testinput", &controllers.TestInputController{}, "get:Get;post:Post")
+
 }
