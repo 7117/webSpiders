@@ -36,5 +36,7 @@ func (c *TestLoginController) Post(){
 
 	c.Ctx.SetCookie("name", u.Username, 100, "/")
 	c.Ctx.SetCookie("password", u.Password, 100, "/")
+	c.SetSession("name", u.Username)
+	c.SetSession("password", u.Password)
 	c.Ctx.WriteString("Username:" + u.Username + " Password:" + u.Password)
 }
