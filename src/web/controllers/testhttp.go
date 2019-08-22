@@ -10,11 +10,11 @@ type TestHttpLibController struct {
 }
 
 func (c *TestHttpLibController) Get() {
-	req:=httplib.Get("http://douban.com/");
-	str,err:=req.String();
-	
-	if err!= nil {
-		panic(err);
+	req := httplib.Get("http://douban.com/")
+	str, err := req.String()
+
+	if err != nil {
+		panic(err)
 	}
 
 	c.Ctx.WriteString(str)

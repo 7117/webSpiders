@@ -15,5 +15,5 @@ func (c *MainController) Test() {
 }
 
 func (c *MainController) Post() {
-	c.Ctx.WriteString("hello");
+	c.Ctx.WriteString("hello")
 }

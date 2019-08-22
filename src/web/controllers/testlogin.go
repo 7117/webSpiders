@@ -8,18 +8,18 @@ type TestLoginController struct {
 	beego.Controller
 }
 
-type User2 struct{
+type User2 struct {
 	Username string
 	Password string
 }
 
 func (c *TestLoginController) Login() {
-	name:=c.Ctx.GetCookie("name");
-	password:=c.Ctx.GetCookie("password");
+	name := c.Ctx.GetCookie("name")
+	password := c.Ctx.GetCookie("password")
 
-	if(name!=""){
+	if name != "" {
 		c.Ctx.WriteString("Username:" + name + " Password:" + password)
-	}else{
+	} else {
 		c.Ctx.WriteString(`<html><form action="http://127.0.0.1:8080/testlogin" method="post"> 
 		<input type="text" name="Username"/>
 		<input type="password" name="Password"/>
@@ -28,9 +28,9 @@ func (c *TestLoginController) Login() {
 	}
 }
 
-func (c *TestLoginController) Post(){
+func (c *TestLoginController) Post() {
 	u := User2{}
-	if err:=c.ParseForm(&u) ; err != nil{
+	if err := c.ParseForm(&u); err != nil {
 
 	}
 

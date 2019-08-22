@@ -17,8 +17,8 @@ func (c *TestViewController) Get() {
 
 	// data分配数据
 	c.Data["Title"] = "aaa"
-	c.Data["IsDisplay"] = 1;
-	c.Data["Content"] = "dd";
+	c.Data["IsDisplay"] = 1
+	c.Data["Content"] = "dd"
 	c.Data["Users"] = users
 	c.Data["len"] = len(users)
 

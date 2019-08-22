@@ -8,7 +8,7 @@ type TestInputController struct {
 	beego.Controller
 }
 
-type User struct{
+type User struct {
 	Username string
 	Password string
 }
@@ -21,11 +21,10 @@ func (c *TestInputController) Get() {
 	</form></html>`)
 }
 
-func (c *TestInputController) Post(){
+func (c *TestInputController) Post() {
 	u := User{}
-	if err:=c.ParseForm(&u) ; err != nil{
+	if err := c.ParseForm(&u); err != nil {
 
 	}
 	c.Ctx.WriteString("Username:" + u.Username + " Password:" + u.Password)
 }
-
