@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	"web/models"
 	"github.com/astaxie/beego/httplib"
@@ -29,6 +30,8 @@ func (c *CrawlMovieController) CrawlMovie() {
 	movieInfo.Movie_grade           = models.GetMovieGrade(sMovieHtml)
 	movieInfo.Movie_span            = models.GetMovieRunningTime(sMovieHtml)
   
-	
+	id, _ := models.AddMovie(&movieInfo)
+	c.Ctx.WriteString(fmt.Sprintf("%v", id))
+
   }
   
