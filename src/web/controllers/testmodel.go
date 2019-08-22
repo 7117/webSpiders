@@ -23,23 +23,33 @@ func (c *TestModelController) Get() {
 	orm.RegisterModel(new(UserInfo))
 
 	o := orm.NewOrm()
-	//下面是插入
-	user := UserInfo{Username:"aaaa", Password:"123456"}
-	id,_ := o.Insert(&user)
-	c.Ctx.WriteString(fmt.Sprintf("id:%v\n", id))
+	// //下面是插入
+	// user := UserInfo{Username:"aaaa", Password:"123456"}
+	// id,_ := o.Insert(&user)
+	// c.Ctx.WriteString(fmt.Sprintf("id:%v\n", id))
 
-	//下面是更新
-	user2 := UserInfo{Username:"112", Password:"1"}
-	user2.Id = 2
-	o.Update(&user2)
+	// //下面是更新
+	// user2 := UserInfo{Id:2,Username:"ttttt", Password:"1"}
+	// id,_:=o.Update(&user2)
+	// c.Ctx.WriteString(fmt.Sprintf("id:%v\n", id))
+
+	// //下面是读取
+	// user3 := UserInfo{Id:2}
+	// o.Read(&user3)
+	// c.Ctx.WriteString(fmt.Sprintf("user info:%v\n",user3.Id))
+
+	// // 下面是删除
+	// u:=UserInfo{Id:4}
+	// o.Delete(&u);
+
+	// 原生SQL
+	var maps []orm.Params
+	o.Raw("select * from user_info where Id=1").Values(&maps);
+
+	for _,v:=range maps{
+		c.Ctx.WriteString(fmt.Sprintf("userinfo:%v\n",v));
+	}
+
 	
-	//下面是读取
-	user3 := UserInfo{Id:2}
-	o.Read(&user3)
-	c.Ctx.WriteString(fmt.Sprintf("user info:%v\n",user3.Id))
-
-	u:=UserInfo{Id:4}
-	o.Delete(&u);
-
 
 }
