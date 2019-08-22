@@ -106,3 +106,16 @@ func GetMovieRunningTime(movieHtml string) string {
 
 	return string(result[0][1])
 }
+
+func GetMovieUrls(movieHtml string)[]string{
+	reg := regexp.MustCompile(`<a.*?href="(https://movie.douban.com/subject/.*?)"`)
+	result := reg.FindAllStringSubmatch(movieHtml, -1)
+
+	var movieSets []string
+	for _,v := range result{
+		movieSets = append(movieSets, v[1])
+	}
+
+	// 返回一个url数组
+	return movieSets
+}

@@ -12,7 +12,7 @@ type CrawlMovieController struct {
 }
 
 func (c *CrawlMovieController) CrawlMovie() {
-	sUrl := "https://movie.douban.com/subject/25827935/"  
+	sUrl := "https://movie.douban.com/subject/25827934/"  
 	rsp := httplib.Get(sUrl);
 	
 	sMovieHtml,err := rsp.String()
@@ -30,8 +30,17 @@ func (c *CrawlMovieController) CrawlMovie() {
 	movieInfo.Movie_grade           = models.GetMovieGrade(sMovieHtml)
 	movieInfo.Movie_span            = models.GetMovieRunningTime(sMovieHtml)
   
-	id, _ := models.AddMovie(&movieInfo)
-	c.Ctx.WriteString(fmt.Sprintf("%v", id))
+	// id, _ := models.AddMovie(&movieInfo)
+	// c.Ctx.WriteString(fmt.Sprintf("%v", id))
 
+	// 连接到redis
+	models.ConnectRedis("127.0.0.1:6379");
+	
+	urls := models.GetMovieUrls(sMovieHtml)
+
+	for _, url := range urls {
+		models.PutinQueue(url)
+		c.Ctx.WriteString(fmt.Sprintf("%v", url))
+	}
   }
   
