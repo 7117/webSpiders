@@ -7,9 +7,7 @@ import (
 
 // 全局的进行声明下
 // 连接实例  就是对象
-var (
-	db orm.Ormer
-)
+
 
 //由于model这个名字叫 UserInfo 那么操作的表其实 user_info
 type UserInfo struct{ 
@@ -18,12 +16,7 @@ type UserInfo struct{
 	Password string
 }
 
-func init() {
-	orm.Debug = true // 是否开启调试模式 调试模式下会打印出sql语句
-	orm.RegisterDataBase("default", "mysql", "root:root@tcp(127.0.0.1:3306)/test?charset=utf8", 30)
-	orm.RegisterModel(new(UserInfo))
-	db = orm.NewOrm()
-}
+
 
 func AddUser(user_info *UserInfo)(int64,error){
 	id,err := db.Insert(user_info)
