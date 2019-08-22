@@ -19,6 +19,7 @@ type UserInfo struct{
 }
 
 func (c *TestModelController) Get() {
+	orm.Debug = true // 是否开启调试模式 调试模式下会打印出sql语句
 	orm.RegisterDataBase("default", "mysql", "root:root@tcp(127.0.0.1:3306)/test?charset=utf8", 30)
 	orm.RegisterModel(new(UserInfo))
 
@@ -43,13 +44,24 @@ func (c *TestModelController) Get() {
 	// o.Delete(&u);
 
 	// 原生SQL
-	var maps []orm.Params
-	o.Raw("select * from user_info where Id=1").Values(&maps);
+	// var maps []orm.Params
+	// o.Raw("select * from user_info where Id=1").Values(&maps);
 
-	for _,v:=range maps{
-		c.Ctx.WriteString(fmt.Sprintf("userinfo:%v\n",v));
-	}
+	// for _,v:=range maps{
+	// 	c.Ctx.WriteString(fmt.Sprintf("userinfo:%v\n",v));
+	// }
 
-	
+	// 原生SQL
+	// var usrs []UserInfo
+	// o.Raw("select * from user_info").QueryRows(&usrs);
+	// c.Ctx.WriteString(fmt.Sprintf("user:%v", usrs))
+
+	// querybuild
+	var users []UserInfo
+	qb, _:=orm.NewQueryBuilder("mysql")
+	qb.Select("password").From("user_info").Where("username= ?").And("id=1").Limit(1)
+	sql := qb.String()  	//获取sql
+	o.Raw(sql,"1").QueryRows(&users)	//绑定参数
+	c.Ctx.WriteString(fmt.Sprintf("user info:%v", users))
 
 }
