@@ -15,5 +15,6 @@ func init() {
 	beego.Router("/testview", &controllers.TestViewController{}, "get:Get;post:Post")
 	beego.Router("/testhttplib", &controllers.TestHttpLibController{}, "get:Get;post:Post")
 	beego.Router("/testcontext", &controllers.TestContextController{}, "get:Get;post:Post")
+	beego.Router("/testcrawl", &controllers.CrawlMovieController{}, "*:CrawlMovie")
 
 }
