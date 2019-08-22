@@ -30,6 +30,7 @@ func AddUser(user_info *UserInfo)(int64,error){
 	return id,err
 }
 
+// 被调用者使用的是变量
 func ReadUserInfo(users *[]UserInfo){
 	qb, _:=orm.NewQueryBuilder("mysql")
 
