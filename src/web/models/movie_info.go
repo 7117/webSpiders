@@ -49,6 +49,10 @@ func GetMovieDirector(movieHtml string) string {
 	reg := regexp.MustCompile(`<a.*?rel="v:directedBy">(.*?)</a>`)
 	result := reg.FindAllStringSubmatch(movieHtml, -1)
 
+	if result == nil {
+		return "测试";
+	}
+
 	return string(result[0][1])
 }
 
@@ -59,6 +63,10 @@ func GetMovieName(movieHtml string) string {
 
 	reg := regexp.MustCompile(`<span\s*property="v:itemreviewed">(.*?)</span>`)
 	result := reg.FindAllStringSubmatch(movieHtml, -1)
+
+	if result == nil {
+		return "测试";
+	}
 
 	return string(result[0][1])
 }
@@ -72,12 +80,20 @@ func GetMovieMainCharacters(movieHtml string) string {
 		mainCharacters += v[1] + "/"
 	}
 
+	if mainCharacters == "" {
+		return "测试";
+	}
+
 	return mainCharacters
 }
 
 func GetMovieGrade(movieHtml string) string {
 	reg := regexp.MustCompile(`<strong.*?property="v:average">(.*?)</strong>`)
 	result := reg.FindAllStringSubmatch(movieHtml, -1)
+
+	if result == nil {
+		return "测试";
+	}
 
 	return string(result[0][1])
 }
@@ -90,12 +106,22 @@ func GetMovieGenre(movieHtml string) string {
 	for _, v := range result {
 		movieGenre += v[1] + "/"
 	}
+
+	if movieGenre == "" {
+		return "测试";
+	}
+
 	return movieGenre
 }
 
 func GetMovieOnTime(movieHtml string) string {
 	reg := regexp.MustCompile(`<span.*?property="v:initialReleaseDate".*?>(.*?)</span>`)
 	result := reg.FindAllStringSubmatch(movieHtml, -1)
+
+
+	if result == nil {
+		return "测试";
+	}
 
 	return string(result[0][1])
 }
@@ -104,11 +130,15 @@ func GetMovieRunningTime(movieHtml string) string {
 	reg := regexp.MustCompile(`<span.*?property="v:runtime".*?>(.*?)</span>`)
 	result := reg.FindAllStringSubmatch(movieHtml, -1)
 
+	if result == nil {
+		return "测试";
+	}
+
 	return string(result[0][1])
 }
 
 func GetMovieUrls(movieHtml string)[]string{
-	reg := regexp.MustCompile(`<a.*?href="(https://movie.douban.com/subject/.*?)"`)
+	reg := regexp.MustCompile(`<a.*?href="(https://movie.douban.com/.*?)"`)
 	result := reg.FindAllStringSubmatch(movieHtml, -1)
 
 	var movieSets []string
@@ -116,6 +146,5 @@ func GetMovieUrls(movieHtml string)[]string{
 		movieSets = append(movieSets, v[1])
 	}
 
-	// 返回一个url数组
 	return movieSets
 }
