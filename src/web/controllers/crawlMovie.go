@@ -23,11 +23,11 @@ func (c *CrawlMovieController) CrawlMovie() {
 	models.PutinQueue(sUrl)
 
 	for{
-		// var length int = models.GetQueueLength()
+		var length int = models.GetQueueLength()
 
-		// if length == 0{
-		// 	break;
-		// }
+		if length == 0{
+			break;
+		}
 
 
 		sUrl = models.PopfromQueue()
@@ -40,9 +40,9 @@ func (c *CrawlMovieController) CrawlMovie() {
 		rsp := httplib.Get(sUrl);
 	
 		sMovieHtml,_ := rsp.String()
-		// if err != nil{
-		// 	panic(err)
-		// }
+		if err != nil{
+			panic(err)
+		}
 
 		movieInfo.Movie_name = models.GetMovieName(sMovieHtml)
 		//记录电影信息
